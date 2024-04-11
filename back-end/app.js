@@ -6,6 +6,13 @@ import connectDB from './database/connect.js'
 
 const app = express();
 
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', 'https://crm-app-navy.vercel.app');
+    res.setHeader('Access-Control-Allow-Methods', 'GET,PUT,PATCH,POST,DELETE');
+    next();
+});
+
+
 const corsOptions = {
     origin: 'https://crm-app-navy.vercel.app',
     methods: 'GET,PUT,PATCH,POST,DELETE',
