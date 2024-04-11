@@ -7,7 +7,8 @@ import connectDB from './database/connect.js'
 const app = express();
 
 const corsOptions = {
-    origin: 'https://crm-app-navy.vercel.app/',
+    origin: 'https://crm-app-navy.vercel.app',
+    methods: 'GET,PUT,PATCH,POST,DELETE',
 }
 
 app.use(cors(corsOptions));
