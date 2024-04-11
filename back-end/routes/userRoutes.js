@@ -1,6 +1,6 @@
 import express from 'express';
 import { loginUser, userSignup } from '../controllers/user-auth/authController.js';
-import { addContact, fetchContacts, fetchUsers, getDashobardData, updateContactSettings } from '../controllers/user-management/userDatacontroller.js';
+import { addContact, deleteContact, editContact, fetchContacts, fetchUsers, getDashobardData, getSingleContact, updateContactSettings } from '../controllers/user-management/userDatacontroller.js';
 const router = express.Router();
 
 
@@ -17,6 +17,12 @@ router.get('/users' , fetchUsers);
 router.get('/dashboard' , getDashobardData);
 
 router.patch('/assign' , updateContactSettings);
+
+router.delete('/delete-contact/:contactId' , deleteContact);
+
+router.put('/edit-contact/:contactId' , editContact);
+
+router.get('/single' , getSingleContact);
 
 
 export default router;

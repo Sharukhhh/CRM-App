@@ -5,7 +5,7 @@ import { useForm } from '../../hooks/useFormHook'
 import { createContact } from '../../api/calls';
 
 
-const ContactModal = ({isModalOpen , closeModal  , updateUI}) => {
+const ContactModal = ({isModalOpen , closeModal  , updateUI , editData}) => {
 
     const {name , email , phone ,
         setName , setEmail , setPhone ,
@@ -29,16 +29,22 @@ const ContactModal = ({isModalOpen , closeModal  , updateUI}) => {
             email: email,
             phone: phone
         }
-        const response = await createContact(data);
 
-        if(response.data.message) {
-            toast.success(response.data.message);
-            updateUI((prev) => !prev);
-            setEmail('');
-            setName('');
-            setPhone('');
-            closeModal();
-        }
+        if(!editData) {
+            const response = await createContact(data);
+
+            if(response.data.message) {
+                toast.success(response.data.message);
+                updateUI((prev) => !prev);
+                setEmail('');
+                setName('');
+                setPhone('');
+                closeModal();
+            }
+
+        } else {
+
+        }   
     }
 
   return (

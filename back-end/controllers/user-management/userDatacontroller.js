@@ -145,3 +145,76 @@ export const updateContactSettings = async (req, res) => {
         return res.status(500).json({error:'Server Error'});
     }
 }
+
+
+/*
+path: '/delete-contact',
+METHOD: delete
+*/
+export const deleteContact = async (req, res) => {
+    try {
+        const contactId = req.params.contactId;
+
+        const contact = await ContactModel.findByIdAndDelete(contactId);
+
+        if(!contact) {
+            return res.status(404).json({error: 'No such contact'});
+        }
+
+        return res.status(200).json({message: 'Deleted Successfully'});
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({error:'Server Error'});
+    }
+}
+
+
+/*
+path: '/edit-contact',
+METHOD: put
+*/
+export const editContact = async (req, res) => {
+    try {
+        
+        const {name , phone , email } = req.body;
+        const contactId = req.params.contactId;
+
+        const contact = await ContactModel.findByIdAndUpdate(contactId , {
+            name: name ,
+            phone: phone,
+            email: email
+
+        } , {new: true});
+
+        return res.status(200).json({message: `Updated ${contact.name}`});
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({error:'Server Error'});
+    }
+}
+
+
+
+/*
+path: '/single',
+METHOD: get
+*/
+export const getSingleContact = async (req, res) => {
+    try {
+        const contactId = req.params.contactId;
+
+        const contact = await ContactModel.findById(contactId);
+
+        if(!contact) {
+            return res.status(404).json({error: 'No contact found'});
+        }
+
+        return res.status(200).json({message: 'success' , contact});
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({error:'Server Error'});
+    }
+}
