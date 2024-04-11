@@ -20,7 +20,24 @@ const contactSchema = mongoose.Schema({
         required: true,
     },
 
-    
+    assignedToID: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'users'
+    },
+
+    assignedTo: {
+        type: String
+    },
+
+    tag: {
+        type: String,
+        default: 'New Lead',
+        enum: ['New Lead' , 'Assigned' , 'Contacted']
+    },
+
+    status: {
+        type: String,
+    }
 
 }, {timestamps: true});
 

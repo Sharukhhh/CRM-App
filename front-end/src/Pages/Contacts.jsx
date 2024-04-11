@@ -44,6 +44,7 @@ const Contacts = () => {
             <TableComponent
             datas={contacts}
             isContact={true}
+            setUpdateUI={setUpdateUI}
             />
 
             <ContactModal 

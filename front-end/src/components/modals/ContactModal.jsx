@@ -4,6 +4,7 @@ import Input from '../fields/Input'
 import { useForm } from '../../hooks/useFormHook'
 import { createContact } from '../../api/calls';
 
+
 const ContactModal = ({isModalOpen , closeModal  , updateUI}) => {
 
     const {name , email , phone ,
@@ -13,9 +14,16 @@ const ContactModal = ({isModalOpen , closeModal  , updateUI}) => {
     const formSubmit = async (e) => {
         e.preventDefault();
 
-        if(!name || !email || !phone) {
-            return;
+        const phoneRegex = /^[0-9]{10}$/;
+
+        if(!phoneRegex.test(phone)) {
+            return toast.error('Invalid phone number');
         }
+
+        if(!name || !email || !phone) {
+            return toast.error('Fill all the fields');
+        }
+
         const data  = {
             name: name, 
             email: email,
@@ -44,7 +52,7 @@ const ContactModal = ({isModalOpen , closeModal  , updateUI}) => {
                         <button onClick={closeModal} className='text-gray-500 hover:text-gray-700'>X</button>
                     </div>
 
-                    <form onClick={formSubmit} className="mt-8 space-y-6">
+                    <form onSubmit={formSubmit} className="mt-8 space-y-6">
                         <div className='rounded-md shadow-sm space-y-5'>
                             <Input
                             name={'name'}

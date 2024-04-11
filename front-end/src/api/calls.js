@@ -97,3 +97,42 @@ export const getUsers = async () => {
         }
     }
 }
+
+export const dashboardData = async () => {
+    try {
+        const response = await axiosInstance.get('/dashboard');
+
+        if(response.data.message) {
+            return response;
+        }
+
+        if(response.data.error) {
+            return toast.error(response.data.error);
+        }
+
+    } catch (error) {
+        if(error.response.data.error || error.message || error) {
+            return toast.error(error.response.data.error || error.message || 'Server Error');
+        }
+    }
+}
+
+
+export const assigningUser = async (data) => {
+    try {
+        
+        const response = await axiosInstance.patch(`/assign` , data);
+        if(response.data.message) {
+            return response;
+        }
+
+        if(response.data.error) {
+            return toast.error(response.data.error);
+        }
+
+    } catch (error) {
+        if(error.response.data.error || error.message || error) {
+            return toast.error(error.response.data.error || error.message || 'Server Error');
+        }
+    }
+}
